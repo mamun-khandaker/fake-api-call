@@ -3,12 +3,18 @@ import React, { useState, useEffect } from 'react';
 const UserDetails = ({ match }) => {
   const [user, setUser] = useState([]);
 
-  useEffect(() => {
-    const getUser = async () => {
+  const getUser = async () => {
+    try {
       const response = await fetch('https://jsonplaceholder.typicode.com/users');
       const jsonResponse = await response.json();
       setUser(jsonResponse);
-    };
+    }
+    catch (err) {
+      alert(err.message);
+    }
+  };
+  
+  useEffect(() => {
     getUser();    
   }, []);
 
