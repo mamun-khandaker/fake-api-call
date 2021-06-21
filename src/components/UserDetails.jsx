@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const UserDetails = ({ match }) => {
-  const [user, setUser] = useState([]);
+  const [users, setUser] = useState([]);
 
   const getUser = async () => {
     try {
@@ -21,8 +21,8 @@ const UserDetails = ({ match }) => {
   return (
     <div className="user-details">
       <ul>
-        {user.filter(user => user.id == match.params.id).map(filteredUser => (
-          <>
+        {users.filter(user => user.id === parseInt(match.params.id)).map(filteredUser => (
+          <React.Fragment key={filteredUser.id}>
             <li>
               <h1 className="user-details-title">{filteredUser.name}'s details</h1>
             </li>
@@ -46,7 +46,7 @@ const UserDetails = ({ match }) => {
               <strong>Address</strong>: <br />
               Street: {filteredUser.address.street}, Suite: {filteredUser.address.suite}, City: {filteredUser.address.city}, ZIP: {filteredUser.address.zipcode}
             </li>
-          </>
+          </React.Fragment>
         ))}
       </ul>
     </div>

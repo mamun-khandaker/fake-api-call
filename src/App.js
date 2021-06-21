@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import UserDetails from './components/UserDetails';
 import Photos from './components/Photos';
 import PhotoDetails from './components/PhotoDetails';
+import Error from './components/Error';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           
           <Route path="/photos" exact component={Photos} />
           <Route path="/photos/:id" component={PhotoDetails} />
+
+          <Route component={Error} />
         </Switch>
       </div>
     </Router>

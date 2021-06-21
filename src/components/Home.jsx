@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
   return (
     <div className="home">
-      Welcome to my site!
+      This is a demo project to fetch data from a fake API
     </div>
   );
 }
