@@ -2,16 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 const PhotoDetails = ({ match }) => {
 
-  const [photo, setPhoto] = useState([]);
+  const [photos, setPhoto] = useState([]);
+  const [loader, setLoader] = useState(false)
 
   const getPhoto = async () => {
     try {
+      setLoader(true);
       const response = await fetch('https://jsonplaceholder.typicode.com/photos');
       const jsonResponse = await response.json();
       setPhoto(jsonResponse);
+      setLoader(false);
     }
     catch (err) {
       alert(err.message);
+      setLoader(false);
     }
   };
   
@@ -24,9 +28,11 @@ const PhotoDetails = ({ match }) => {
       <h1>Photo details</h1>
 
       <ul>
-        {
-          photo.filter(photo => photo.id == match.params.id).map(photo => (
-            <>
+        {loader ? 
+          <div className="loader"></div>
+          :
+          photos.filter(photo => photo.id === parseInt(match.params.id)).map(photo => (
+            <React.Fragment key={photo.id}>
               <li>
                 <strong>Album ID</strong>: {photo.albumId}
               </li>
@@ -44,7 +50,7 @@ const PhotoDetails = ({ match }) => {
                 <strong>Full image</strong>: <br />
                 <img src={photo.url} alt="large" />
               </li>
-            </>
+            </React.Fragment>
           ))
         }
       </ul>
